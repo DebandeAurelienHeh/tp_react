@@ -1,6 +1,8 @@
 import './App.css'
 import './components/Gallery.jsx'
 import Gallery from "./components/Gallery.jsx";
+import Search from "./components/Search.jsx";
+import {useState} from "react";
 
 function App() {
     const arrayPhoto = [
@@ -86,9 +88,21 @@ function App() {
         }
     ]
 
+    const[searchFilter, setSearch] = useState(arrayPhoto);
+
+    const handleChange = (event) => {
+        let searchText = event.target.value;
+        searchText = searchText.toLowerCase();
+        let result = arrayPhoto.filter(photo =>{
+            return photo.author.toLowerCase().includes(searchText);
+        })
+        setSearch(result);
+    }
+
     return(
         <>
-        <Gallery arrayPhoto={arrayPhoto}/>
+            <Search callback={handleChange}/>
+            <Gallery arrayPhoto={searchFilter}/>
         </>
     )
 }
