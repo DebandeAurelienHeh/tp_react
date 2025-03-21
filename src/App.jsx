@@ -98,7 +98,6 @@ function App() {
         })
         setSearch(result);
     }
-
     return(
         <>
             <Search callback={handleChange}/>

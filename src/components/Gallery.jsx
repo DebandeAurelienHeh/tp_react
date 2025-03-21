@@ -1,26 +1,34 @@
-import "../App.jsx"
-import "./Photos.jsx"
 import Photos from "./Photos.jsx";
-
+import {useState} from "react";
+import "../App.jsx"
 
 function Gallery(props) {
     const title = "Gallerie de photos"
-    //let sizeHeight = 300;
-    //let sizeWidth = 500;
+    const [hideId, setHideId] = useState(false); // État pour contrôler l'affichage des IDs
 
     return(
         <div>
-            <h1>{ title }</h1>
+            <h1>{title}</h1>
 
-            {/*<Photos sizeHeight={ sizeHeight } sizeWidth={ sizeWidth } id={ 2 }/><Photos sizeHeight={ sizeHeight } sizeWidth={ sizeWidth } id={ 1 }/>*/}
-
+            <label>
+                Masquer les IDs :
+                <input
+                    type="checkbox"
+                    checked={hideId}
+                    onChange={(e) => setHideId(e.target.checked)}
+                />
+            </label>
 
             {props.arrayPhoto.map(photo => (
-                    <Photos source = { photo.download_url } sizeHeight={ photo.height } sizeWidth={ photo.width } author={ photo.author } />
+                <Photos
+                    key={photo.id}
+                    source={photo.download_url}
+                    id={photo.id}
+                    author={photo.author}
+                    hideId={hideId}
+                />
             ))}
         </div>
-
-
-    );
+    )
 }
 export default Gallery;
